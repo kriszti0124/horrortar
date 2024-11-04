@@ -1,0 +1,36 @@
+ Filmek tábla (movies)
+Oszlop neve	Típus	Leírás
+fid	INT	Egyedi azonosító (elsődleges kulcs)
+fcim	VARCHAR(255)	Film címe
+fmegjelenes	DATE	Megjelenés éve
+fmufaj	VARCHAR(100)	Műfaj (pl. horror, thriller)
+fleiras	TEXT	Rövid leírás a filmről
+ffeltoltdatum	DATETIME	Feltöltés dátuma
+uid		INT	feltöltő
+
+
+ Ertekeles tábla (ratings)
+Oszlop neve	Típus	Leírás
+eid	INT	Egyedi azonosító (elsődleges kulcs)
+fid	INT	Film azonosító (külső kulcs)
+uid	INT	Felhasználó azonosító (külső kulcs)
+eertekeles	INT	Értékelés (1-5 skálán)
+ekomment	TEXT	Vélemény a filmről
+eertekelesdatum	DATETIME	Értékelés dátuma
+
+
+ Karakterek tábla (characters)
+Oszlop neve	Típus	Leírás
+kid	INT	Egyedi azonosító (elsődleges kulcs)
+fid	INT	Film azonosító (külső kulcs)
+knev	VARCHAR(100)	Karakter neve
+krang	INT	Karakter rangsora (1-10)
+
+
+ Karakter_rangsorolas tábla (character_rankings)
+Oszlop neve	Típus	Leírás
+rid	INT	Egyedi azonosító (elsődleges kulcs)
+kid	INT	Karakter azonosító (külső kulcs)
+uid	INT	Felhasználó azonosító (külső kulcs)
+krank	INT	Rang (1-10)
+kranksordatum	DATETIME	Rangsorolás dátuma
