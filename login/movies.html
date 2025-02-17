@@ -30,7 +30,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: url('../jankopetra/shining.jpg') no-repeat;
+        background: url('../login/shining.jpg') no-repeat;
         background-size: cover;
         background-position: center;
         overflow: hidden;
@@ -66,6 +66,7 @@
     }
 
     .movie-title {
+        color: #fff;
         max-width: 250px;
     }
 
@@ -74,12 +75,27 @@
         font-weight: 400;
         font-size: 30px;
     }
+
+    .banner .content h4 span {
+        padding: 0 10px;
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .banner .content h4 span:first-child {
+        padding-left: 0;
+    }
+
+    .banner .content h4 span:last-child {
+        border-right: none;
+    }
+
+
 </style>
 
 <body>
     
     <div class="banner">
-        <div class="content">
+        <div class="content active">
             <div class="movie-title">Ragyogás</div>
         </div>
         <h4>
@@ -93,7 +109,7 @@
         </div>
     </div>
 
-    <div class="carousel-box"></div>
+    <!-- <div class="carousel-box"></div> -->
     <a href="#" class="play"><i class='bx bx-play-circle' ></i>Nézd meg az előzetest</a>
 
 
