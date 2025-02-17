@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Filmek</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary: #ff3700;
+    }
+
+    body {
+        background: #000000;
+    }
+
+    .banner {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        padding: 0 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: url('../jankopetra/shining.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+
+    .banner::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .content {
+        position: relative;
+        max-width: 550px;
+        display: none;
+        visibility: hidden;
+        transform: scale(0);
+        transition: 0.5s;
+    }
+
+    .content.active {
+        display: block;
+        visibility: visible;
+        transform: scale(1);
+        transition: 0.5s;
+    }
+
+    .movie-title {
+        max-width: 250px;
+    }
+
+    .banner .content h4 {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    
+    <div class="banner">
+        <div class="content">
+            <div class="movie-title">Ragyogás</div>
+        </div>
+        <h4>
+            <span>1980</span><span><i>18+</i></span><span>2ó 26p</span><span>Pszichológiai horror</span>
+        </h4>
+        <p>Jack Torrance (Jack Nicholson) író elvállal egy nyugalmasnak ígérkező munkát: családjával télire az Overloook Hotelbe költözik, hogy ellássa az épület gondnoki teendőit. Az írói válsággal küzdő Jack a magánytól és a világtól való elzártságtól azt reméli, hogy ihletet kap, ám egészen más jellegű problémákkal kell szembetalálnia magát. Fiának furcsa látomásai lesznek, ő pedig szép lassan nem tud különbséget tenni valóság és vízió között. Kétségbeesett felesége (Shelley Duvall) egy darabig csak tehetetlenül szemléli az eseményeket, ameddig rá nem döbben, hogy itt már nem csak az ép elméjük megőrzése a tét.</p>
+
+        <div class="button">
+            <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+            <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+        </div>
+    </div>
+
+    <div class="carousel-box"></div>
+    <a href="#" class="play"><i class='bx bx-play-circle' ></i>Nézd meg az előzetest</a>
+
+
+    <script src="https://releases.jquery.com/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
