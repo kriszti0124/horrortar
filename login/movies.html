@@ -247,6 +247,7 @@
             <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
             <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
         </div>
+        
     </div>
 
     <div class="carousel-box">
@@ -302,33 +303,9 @@
     </div> -->
 
 
-    <script src="https://releases.jquery.com/"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <script>
-        function toggleVideo() {
-            const trailer = document.querySelector('.trailer');
-            const video = document.querySelector('video');
-            video.pause();
-            trailer.classList.toggle('active');
-        }
-
-        function changeBr(bg, title) {
-            const banner = document.querySelector('.banner');
-            const contents = document.querySelectorAll('.content');
-            banner.style.background = 'url("../petra/login/${bg}")';
-            banner.style.backgroundSize = 'cover';
-            banner.style.backgroundPosition = 'center';
-
-            contents.forEach(content => {
-                content.classList.remove('active');
-                if (content.classList.contains(title)) {
-                    content.classList.add('active');
-                }
-            });
-        }
-    </script>
-
+    <script src="javascript.js"></script>
     <script>
         $(document).ready(function(){
             $('.carousel').carousel();
