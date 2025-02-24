@@ -5,10 +5,10 @@ function toggleVideo() {
     trailer.classList.toggle('active');
 }
 
-function changeBr(bg, title) {
+function changeBg(bg, title) {
     const banner = document.querySelector('.banner');
     const contents = document.querySelectorAll('.content');
-    banner.style.background = 'url("../petra/login/${bg}")';
+    banner.style.background = `url('../bg/${bg}')`;
     banner.style.backgroundSize = 'cover';
     banner.style.backgroundPosition = 'center';
 
