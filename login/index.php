@@ -74,7 +74,7 @@
             {
                 if($p=="")                  include("kezdolap.php");     else
                 if ($p=="regisztracio")     include ("reg_form.php");    else
-                if ($p=="login")            include ("login_form.php");  else
+                if ($p=="login")            include ("login_form2.php");  else
                                             include("404_kulso.php");
             }
             else
