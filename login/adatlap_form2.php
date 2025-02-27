@@ -1,32 +1,50 @@
+<?php
+    session_start();
+?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Adatlap</title>
+</head>
 <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
+        /*iframe {*/
+        /*    display: none;*/
+        /*}*/
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /*display: flex;*/
+            /*justify-content: center;*/
+            /*align-items: center;*/
             min-height: 100vh;
             background: url(background.jpg) no-repeat;
             background-size: cover;
             background-position: center;
         }
+        
+        .kozepre {
+            min-height: calc(100vh - 100px); 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .wrapper {
             position: relative;
             width: 400px;
-            height: 800px;
             background: transparent;
             border: 2px solid rgba(255, 255, 255, .5);
             border-radius: 20px;
             backdrop-filter: blur(20px);
             box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            
             overflow: hidden;
         }
 
@@ -123,8 +141,8 @@
         $user = mysqli_fetch_array(mysqli_query($adb , "SELECT * FROM user 
                                                         WHERE uid='$_SESSION[uid]'"));
     ?>
-
-<div class="wrapper">
+<div class="kozepre">
+    <div class="wrapper">
         <div class="form-box register">
             <h2>Adatlap</h2>
             <form action='adatlap_ir.php' method='post' target='kisablak' class='reglog' enctype='multipart/form-data' id='adatlap'>
@@ -153,22 +171,28 @@
             </form>
             <br>
 
-            <h2>Jelszómódosítás</h2>
-            <form action='adatlap_ir.php' method='post' target='kisablak' class='reglog' enctype='multipart/form-data' id='jelszomodositas'>
-            <div class="input-box">
-                <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                <input type='password' name='upw' maxlength='8' minlength='4'>
-                <label>Új jelszó</label>
-            </div>
-            <div class="input-box">
-                <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                <input type='password' name='upw' maxlength='8' minlength='4'>
-                <label>Új jelszó megint</label>
-            </div>
-            <div class="input-box">
-                <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                <input type='password' name='upw' maxlength='8' minlength='4'>
-                <label>Jelenlegi jelszó</label>
-            </div>
+            <!--<h2>Jelszómódosítás</h2>-->
+            <!--<form action='adatlap_ir.php' method='post' target='kisablak' class='reglog' enctype='multipart/form-data' id='jelszomodositas'>-->
+            <!--<div class="input-box">-->
+            <!--    <span class="icon"><i class='bx bxs-lock-alt'></i></span>-->
+            <!--    <input type='password' name='upw' maxlength='8' minlength='4'>-->
+            <!--    <label>Új jelszó</label>-->
+            <!--</div>-->
+            <!--<div class="input-box">-->
+            <!--    <span class="icon"><i class='bx bxs-lock-alt'></i></span>-->
+            <!--    <input type='password' name='upw' maxlength='8' minlength='4'>-->
+            <!--    <label>Új jelszó megint</label>-->
+            <!--</div>-->
+            <!--<div class="input-box">-->
+            <!--    <span class="icon"><i class='bx bxs-lock-alt'></i></span>-->
+            <!--    <input type='password' name='upw' maxlength='8' minlength='4'>-->
+            <!--    <label>Jelenlegi jelszó</label>-->
+            <!--</div>-->
         </div>
     </div>
+</div>
+
+    
+<?php
+    mysqli_close($adb);
+?>
