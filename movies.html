@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Filmek</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary: #ff3700;
+    }
+
+    body {
+        background: #000000;
+    }
+
+    .banner {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        padding: 0 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: url('../bg/shining.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+
+    .banner::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .content {
+        position: relative;
+        max-width: 550px;
+        display: none;
+        visibility: hidden;
+        transform: scale(0);
+        transition: 0.5s;
+    }
+
+    .content.active {
+        display: block;
+        visibility: visible;
+        transform: scale(1);
+        transition: 0.5s;
+    }
+
+    .movie-title {
+        color: #fff;
+        max-width: 250px;
+    }
+
+    .banner .content h4 {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+        font-size: 30px;
+    }
+
+    .banner .content h4 span {
+        padding: 0 10px;
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .banner .content h4 span:first-child {
+        padding-left: 0;
+    }
+
+    .banner .content h4 span:last-child {
+        border-right: none;
+    }
+
+    .banner .content h4 span i {
+        background: var(--primary);
+        color: #fff;
+        padding: 0 8px;
+        display: inline-block;
+        border-radius: 2px;
+    }
+
+    .banner .content p {
+        font-size: 1em;
+        font-weight: 300;
+        line-height: 1.5em;
+        color: #fff;
+        margin: 10px 0 20px;
+    }
+
+    .banner .content .button {
+        position: relative;
+    }
+
+    .banner .content .button a {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+        background: var(--primary);
+        color: #fff;
+        padding: 6px 20px;
+        text-decoration: none;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    .banner .content .button a:nth-child(2) {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .banner .content .button a:hover:nth-child(2) {
+        background: var(--primary);
+    }
+
+    .banner .carousel-box {
+        position: relative;
+        min-width: 950px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.2);
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 10px;
+    }
+
+    .carousel {
+        position: relative;
+        height: 550px;
+        perspective: 1500px;
+    }
+
+    .carousel .carousel-item {
+        width: 250px;
+        cursor: pointer;
+    }
+
+    .carousel .carousel-item img {
+        max-width: 235px;
+        border-radius: 10px;
+        transform: translateX(8px) translateY(-100px);
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .play {
+        position: absolute;
+        bottom: 50px;
+        left: 100px;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 1px;
+        font-size: 1.2em;
+        cursor: pointer !important;
+        transition: 0.3s;
+    }
+
+    .play i {
+        margin-right: 10px;
+        font-size: 40px;
+        cursor: pointer !important;
+    }
+
+    .play:hover {
+        color: var(--primary);
+    }
+
+    .trailer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 100;
+        width: 100;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(20px);
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.5s;
+    }
+
+    .trailer.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .trailer video {
+        max-width: 900px;
+        outline: none;
+    }
+
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        cursor: pointer;
+        filter: invert(1s);
+        max-width: 30px;
+    }
+
+
+</style>
+
+<body>
+    
+    <div class="banner">
+        <div class="content active">
+            <div class="movie-title">Ragyogás</div>
+            <h4>
+                <span>1980</span>
+                <span><i>18+</i></span>
+                <span>2ó 26p</span>
+                <span>Pszichológiai horror</span>
+            </h4>
+            <p>Jack Torrance (Jack Nicholson) író elvállal egy nyugalmasnak ígérkező munkát: családjával télire az Overloook Hotelbe költözik, hogy ellássa az épület gondnoki teendőit. Az írói válsággal küzdő Jack a magánytól és a világtól való elzártságtól azt reméli, hogy ihletet kap, ám egészen más jellegű problémákkal kell szembetalálnia magát. Fiának furcsa látomásai lesznek, ő pedig szép lassan nem tud különbséget tenni valóság és vízió között. Kétségbeesett felesége (Shelley Duvall) egy darabig csak tehetetlenül szemléli az eseményeket, ameddig rá nem döbben, hogy itt már nem csak az ép elméjük megőrzése a tét.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content saw">
+            <div class="movie-title">Fűrész</div>
+            <h4>
+                <span>2004</span>
+                <span><i>18+</i></span>
+                <span>1ó 43p</span>
+                <span>Slasher</span>
+            </h4>
+            <p>Egy kegyetlen, rejtőzködő és önjelölt erkölcscsősz az élet értékére szeretné megtanítani embertársait úgy, hogy lehetetlen helyzetekbe hozza őket. Előre kiszemelt áldozatait, akiket környezetük jó és tisztességes embereknek tart, elrabolja, és olyan játékba kényszeríti, amiben saját életük a tét – akár más életének árán is. Az elképzelhetetlenül nehéz helyzetekben lévő játékosok dönthetnek, megkísérlik-e a lehetetlent…</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content exorcist">
+            <div class="movie-title">Ördögűző</div>
+            <h4>
+                <span>1973</span>
+                <span><i>18+</i></span>
+                <span>2ó 2p</span>
+                <span>Természetfeletti horror</span>
+            </h4>
+            <p>A fiatal Regan testét megszállja az ördög. Édesanyja, Chris értetlenül áll a dolog előtt, és az orvosok segítségét kéri lánya gyógyításában, akik minden lehetséges eszközzel megpróbálják kivizsgálni a különös esetet, ám nem járnak sikerrrel. Végső megoldásként az anya Merrin atyához fordul, aki hitében erős, ismert ördögűző hírében áll, és kezdetét veszi a gonosz elleni harc.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content intjv">
+            <div class="movie-title">Interjú a vámpírral</div>
+            <h4>
+                <span>1994</span>
+                <span><i>18+</i></span>
+                <span>2ó 3p</span>
+                <span>Fantasy horror</span>
+            </h4>
+            <p>Egy fiatal riporternek különös és távolságtartó interjúalanya akad, Louis, a vámpír. A halhatatlan teremtmény elmeséli az újságírónak 200 éves történetét, hogyan ismerkedett meg Lestattal, a vámpírral, hogyan vált ő is vérszívóvá, és milyen kalandokon keresztül élte meg a történelem változásait. Louis és Lestat kezdetben kettesben, majd a fiatal Claudiával karöltve vándorolak városról városra, amíg Louis el nem határozza, hogy az életbenmaradásért cserébe nem akar több életet kioltani.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content scream">
+            <div class="movie-title">Sikoly</div>
+            <h4>
+                <span>1996</span>
+                <span><i>18+</i></span>
+                <span>1ó 51p</span>
+                <span>Slasher horror</span>
+            </h4>
+            <p>Sindey-nek nincs könnyű dolga: édesanyját meggyilkolták, édesapja elhanyagolja, és a barátjával sem úgy alakul a viszonyuk, ahogy azt elképzelné. A kisvárosban feltűnik egy maszkos sorozatgyilkos, aki elezdi terrorizálni a lány barátnőjét, Casey Beckert, de senki nem érezheti magát biztonságban.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content blade">
+            <div class="movie-title">Penge</div>
+            <h4>
+                <span>1998</span>
+                <span><i>18+</i></span>
+                <span>2ó 00p</span>
+                <span>Természetfeletti horror</span>
+            </h4>
+            <p>Penge, a különleges képességekkel megáldott félig ember, félig vámpír gyerekkora óta egy barátjával karöltve irtja a vámpírokat. Miután a férfi megmenti a bájos doktornő, Karen életét, ő is csatlakozik a csapathoz. De vajon ők hárman elegendőek ahhoz, hogy felvegyék a harcot a föld uralmára törő vérszomjas vámpírral, Frosttal?</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content sinister">
+            <div class="movie-title">Sinister</div>
+            <h4>
+                <span>2012</span>
+                <span><i>18+</i></span>
+                <span>1ó 50p</span>
+                <span>Természetfeletti horror</span>
+            </h4>
+            <p>Ellison Oswalt (Ethan Hawke) valós bűntényeket alapul véve írja regényeit. Családjával most egy olyan házba költöznek, ahol korábban szörnyű bűncselekmények történtek, de ők minderről mit sem sejtenek. Ellison szeretne minél többet kideríteni ezekről a gyilkosságokról, hogy regényt írhasson az esetről. A házban különös felvételeket talál, mindegyik felvételen ugyanaz az alak látható. A felvételek megtekintése után furcsa dolgok kezdenek történni a házban lakókkal...</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content insidious">
+            <div class="movie-title">Insidious</div>
+            <h4>
+                <span>2010</span>
+                <span><i>16+</i></span>
+                <span>1ó 43p</span>
+                <span>Természetfeletti horror</span>
+            </h4>
+            <p>Renai és Josh kisfiukkal együtt új otthonba költöznek. Nem sokkal később a fiú balesetet szenved, és kómába esik. Kiderül, hogy démoni erők dolgoznak a háttérben, aki lelkét akarják elragadni. A házaspár mindent megtesz azért, hogy ez ne következzen be, és felveszik a harcot a szellemvilággal, s ha kell, még a poklot is hajlandóak megjárni a fiú életéért.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content parajel">
+            <div class="movie-title">Parajelenségek</div>
+            <h4>
+                <span>2007</span>
+                <span><i>16+</i></span>
+                <span>1ó 51p</span>
+                <span>Természetfeletti horror</span>
+            </h4>
+            <p>A fiatal pár, Katie és Micah beköltöznek új San Diegó-i otthonukba. Katie, aki hisz a természetfeletti jelenségekben, szokatlan eseményekre lesz figyelmes, de Micah ostobaságnak tartja a dolgot. A nő végül felállít egy kamerát, hátha így bizonyítékot tud szerezni. A pár megdöbbenve tudatosítja, hogy éjszakánként egy démon kísérti őket, és lassan már saját épelméjüket is elveszítik.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="content hazazerdo">
+            <div class="movie-title">Ház az erdő mélyén</div>
+            <h4>
+                <span>2011</span>
+                <span><i>16+</i></span>
+                <span>1ó 35p</span>
+                <span>Thriller</span>
+            </h4>
+            <p>Öt egyetemista srác úgy dönt, hogy egy vidéki házikóban tombolják ki magukat egy hétvége erejéig. Az éjszaka azonban egy rémálommá válik, amikor félelmetes természetfeletti lények támadják meg őket. A srácok pont úgy viselkednek, ahogy azt a horrorfilmekben már megszokhattuk. Eközben egy csapat technikus figyeli és néha irányítja őket. Ugyan megpróbálnak elmenekülni, de bármilyen tervet eszelnek ki, valaki, aki mindent lát, mindig keresztbe tesz nekik.</p>
+
+            <div class="button">
+                <a href="#"><i class='bx bx-movie-play' ></i>Nézd meg</a>
+                <a href="#"><i class='bx bx-plus-circle'></i>Listámhoz</a>
+            </div>
+        </div>
+
+        <div class="carousel-box">
+            <div class="carousel">
+                <div class="carousel-item" 
+                onClick="changeBg('../bg/shining.jpg', 'ragyogas');">
+                    <img src="../posters/ragyogas.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/saw.jpg', 'saw');">
+                    <img src="../posters/furesz.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/exorcist.jpg', 'ordoguzo');">
+                    <img src="../posters/ordoguzo.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/intjv.jpg', 'intjv');">
+                    <img src="../posters/intavamp.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/scream.jpg', 'scream');">
+                    <img src="../posters/sikoly.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/blade.jpg', 'penge');">
+                    <img src="../posters/penge.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/sinister.jpg', 'sinister');">
+                    <img src="../posters/sinister.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/insidious.png', 'insidious');">
+                    <img src="../posters/insidious.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/Paranormal_Activity_(film_2007).png', 'parajel');">
+                    <img src="../posters/parajel.jpg" alt="">
+                </div>
+                <div class="carousel-item"
+                onClick="changeBg('../bg/hazazerdo.jpg', 'hazazerdo');">
+                    <img src="../posters/haz-az-erdo-melyen.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="play" onClick="toggleVideo();">
+        <i class='bx bx-play-circle' ></i>Nézd meg az előzetest
+    </a>
+
+    <!-- <div class="trailer">
+        <video
+            src=""
+            muted
+            controls="true"
+            autoplay="true"
+        >
+        </video>
+        <div class="close" onClick="toggleVideo();">
+            <i class='bx bx-x'></i>
+        </div>
+    </div> -->
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="javascript.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.carousel').carousel();
+        });
+    </script>
+</body>
+</html>
