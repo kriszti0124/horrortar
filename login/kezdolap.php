@@ -63,9 +63,6 @@
 </style>
 
 <body>
-   <?php
-   include("navigacio.php");
-   ?>
 
     <main>
         <section id="hero">
