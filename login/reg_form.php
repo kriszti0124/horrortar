@@ -18,8 +18,6 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,13 +32,18 @@
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
             background: url(background.jpg) no-repeat;
             background-size: cover;
             background-position: center;
+        }
+        
+        .kozepre {
+            height: calc(100vh - 100px); 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .wrapper {
@@ -52,9 +55,6 @@
             border-radius: 20px;
             backdrop-filter: blur(20px);
             box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
         }
 
@@ -149,7 +149,8 @@
 
 </head>
 <body>
-<div class="wrapper">
+<div class="kozepre">
+    <div class="wrapper">
         <div class="form-box register">
             <h2>Regisztráció</h2>
             <form action="reg_ir.php" method="POST" target="kisablak">
@@ -175,15 +176,17 @@
                 </div>
                 <button type="submit" class="btn">Regisztráció</button>
                 <div class="login-register">
-                    <p>Van már fiókod?<a href="#" class="register-link"> Bejelentkezés</a></p>
+                    <p>Van már fiókod?<a href="./?p=login" class="register-link"> Bejelentkezés</a></p>
                 </div>
             </form>
         </div>
     </div>
+</div>
+
 
     <?php
                 if (!isset($_SESSION['uid'])) {
-                    print "<input type='button' value='Belépés' id='btnlogin' onclick='location.href=\"./?p=login\"'>";
+                    // print "<input type='button' value='Belépés' id='btnlogin' onclick='location.href=\"./?p=login\"'>";
                 }
                 else
                 { 
@@ -203,7 +206,6 @@
         
             ?>
 </body>
-</html>
 
 <?php
     mysqli_close($adb);
