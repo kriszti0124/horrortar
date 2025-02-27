@@ -1,43 +1,67 @@
 <?php
     session_start();
-    print_r( $_POST );
+    include("randomstring.php");
+    // print_r( $_POST );
 
     print "<hr>";
 
-    print_r( $_FILES );
+
 
     include( "kapcsolat.php" );
 
-    $kepnev = $_SESSION['uid'] . "_" . date( "ymdHis" ) ."_" . randomstring(10);
-    $kepadat = $_FILES['profkep'];
+    $toltottefel = false;
+    $kepnev = "";
+    $eredetikepnev = "";
 
-    if ( $kepadat['type']=="image/jpeg" ) $kiterj = ".jpg";    else
-    if ( $kepadat['type']=="image/png"  )  $kiterj = ".png";   else
-    die( "<script> alert('A kép csak jpg vagy png lehet!')</script>" );
+    if(isset($_FILES['profkep']) && $_FILES['profkep']["name"] != "") { 
+        
+        $kepnev = $_SESSION['uid'] . "_" . date( "ymdHis" ) ."_" . randomstring(10);
+        $kepadat = $_FILES['profkep'];
 
-    $kepnev .= $kiterj;
-    move_uploaded_file($kepadat['tmp_name'],"./profilkepek/". $kepnev);
-    $eredetikepnev = $kepadat['name'];
-    print "<br>". $kepnev;
+        if ($kepadat['type'] == "image/jpeg") {
+            $kiterj = ".jpg";
+        } else if ($kepadat['type'] == "image/png") {
+            $kiterj = ".png";
+        } else {
+            die("<script> alert('A kép csak jpg vagy png lehet!')</script>");
+        }
 
-    if ( $_POST['unick']=="" ) die("<script> alert('Felhasználónév?')</script>");
-    
-    mysqli_query( $adb, "
-        UPDATE user 
-        SET    umail                = '$_POST[umail]' ,
-               unick                = '$_POST[unick]' ,
-               uszuldatum           = '$_POST[uszuldatum]' ,
-               uprofkep_nev         = '$kepnev'  ,
-               uprofkep_eredetinev  = '$eredetikepnev'
-        WHERE  uid                  = '$_POST[uid]'
-    " );
+        $kepnev .= $kiterj;
+        move_uploaded_file($kepadat['tmp_name'], "./profilkepek/" . $kepnev);
+        $eredetikepnev = $kepadat['name'];
+        
+        mysqli_query($adb, "
+            UPDATE user 
+            SET    umail = '$_POST[umail]',
+                   unick = '$_POST[unick]',
+                   uszuldatum = '$_POST[uszuldatum]',
+                   uprofkep_nev = '$kepnev',
+                   uprofkep_eredetinev = '$eredetikepnev'
+            WHERE  uid = '$_SESSION[uid]'
+        ");
+        $_SESSION['unick'] = $_POST['unick'];
+        $toltottefel = true;
+    }
 
-    $_SESSION['unick'] = $_POST[unick];
+    if (!$toltottefel) {
+        if ($_POST['unick'] == "") {
+            die("<script> alert('Felhasználónév megadása kötelező!')</script>");
+        }
+
+        mysqli_query($adb, "
+            UPDATE user 
+            SET    umail = '$_POST[umail]',
+                   unick = '$_POST[unick]',
+                   uszuldatum = '$_POST[uszuldatum]'
+            WHERE  uid = '$_SESSION[uid]'
+        ");
+        $_SESSION['unick'] = $_POST['unick'];
+    }
 
     print "
         <script>
-            alert('Adataidat módosítottuk')
-            parent.location.href = parent.location.href
+            alert('Adataidat módosítottuk');
+            parent.location.href = parent.location.href;
         </script>
     ";
 
