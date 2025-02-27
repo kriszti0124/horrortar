@@ -1,11 +1,22 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Horrortár</title>
-</head>
+<?php
+
+    session_start() ;
+    include("kapcsolat.php");
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $sess = substr(session_id() , 0, 8);
+
+    if( isset($_SESSION['uid'])) $uid = $_SESSION['uid'];
+    else                         $uid = 0;
+
+    $url = $_SERVER['REQUEST_URI'];
+
+    mysqli_query($adb , "
+        INSERT INTO naplo (nid, ndatum, nip, nsession, nuid, nurl) 
+        VALUES            (NULL, NOW(), '$ip', '$sess', '$uid', '$url')
+    ");
+
+?>
 
 <style>
     * {
@@ -160,27 +171,6 @@
 </style>
 
 <body>
-    <header>
-        <div class="navbar">
-            <div class="logo"><a href="#">Logo</a></div>
-            <ul class="links">
-                <li><a href="kezdolap">Kezdőlap</a></li>
-                <li><a href="filmek">Filmek</a></li>
-                <li><a href="karakterek">Karakterek</a></li>
-            </ul>
-            <a href="#" class="action_btn">Kijelentkezés</a>
-            <div class="toggle_btn">
-                <i class="bx bx-menu"></i>
-            </div>
-        </div>
-
-        <div class="dropdown_menu">
-            <li><a href="kezdolap">Kezdőlap</a></li>
-            <li><a href="filmek">Filmek</a></li>
-            <li><a href="karakterek">Karakterek</a></li>
-            <li><a href="#" class="action_btn">Kijelentkezés</a></li>
-        </div>
-    </header>
 
     <main>
         <section id="hero">
@@ -188,19 +178,9 @@
         </section>
     </main>
 
-    <script>
-        const toggleBtn = document.querySelector('.toggle_btn')
-        const toggleBtnIcon = document.querySelector('.toggle_btn i')
-        const dropdownMenu = document.querySelector('.dropdown_menu')
-
-        toggleBtn.onclick = function () {
-            dropdownMenu.classList.toggle('open')
-            const isOpen = dropdownMenu.classList.contains('open')
-
-            toggleBtnIcon.classList = isOpen
-            ? 'bx bx-x'
-            : 'bx bx-menu'
-        }
-    </script>
 </body>
-</html>
+
+
+<?php
+    mysqli_close($adb);
+?>
