@@ -1,3 +1,9 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Bejelentkezés</title>
+</head>
 <style>
     * {
         margin: 0;
@@ -11,20 +17,24 @@
         background-size: cover;
         background-position: center;
     }
+    
+    .kozepre {
+        height: calc(100vh - 100px); 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     .wrapper {
-        height: 100vh; 
         position: relative;
         width: 400px;
-        height: 440px;       
+        height: 400px;       
         background: transparent;
         border: 2px solid rgba(255, 255, 255, .5);
         border-radius: 20px;
         backdrop-filter: blur(20px);
         box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
         overflow: hidden;
     }
 
@@ -118,7 +128,7 @@
 </style>
 
 <body>
-
+<div class="kozepre">
     <div class="wrapper">
         <div class="form-box login">
             <h2>Bejelentkezés</h2>
@@ -140,6 +150,8 @@
             </form>
         </div>
     </div>
+</div>
+    
 
     <script src="script.js"></script>
 </body>
