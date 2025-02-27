@@ -136,7 +136,7 @@
 
 <header>
         <div class="navbar">
-            <div class="logo"><a href="#">Logo</a></div>
+            <div class="logo"><a href="https://horrortar.hu/">Logo</a></div>
             <ul class="links">
                 <li><a href="kezdolap">Kezdőlap</a></li>
                 <li><a href="filmek">Filmek</a></li>
