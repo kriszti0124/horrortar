@@ -18,6 +18,13 @@
 
 ?>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Horrortár</title>
+</head>
+
 <style>
     * {
         margin: 0;
@@ -115,7 +122,9 @@
     }
 
     .dropdown_menu.open {
-        height: 180px;
+        height: 280px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+        z-index: 1000;
     }
 
     .dropdown_menu li {
