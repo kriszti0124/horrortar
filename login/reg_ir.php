@@ -1,6 +1,5 @@
 <?php
     session_start();
-    // print_r($_POST);
     include_once("kapcsolat.php");
     
     if($_POST['unick']=="")
