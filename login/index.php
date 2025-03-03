@@ -17,9 +17,10 @@
 ?>
 <html>
     <style>
-        /*iframe{*/
-        /*    display: none;*/
-        /*}*/
+        iframe{
+            display: none;
+        }
+        
         div#login {
             text-align:right;
         } 
@@ -44,46 +45,24 @@
     </style>
 
     <body>
-        <div id='login'> 
-            <?php
-                if (!isset($_SESSION['uid'])) {
-                    // print "<input type='button' value='Belépés' id='btnlogin' onclick='location.href=\"./?p=login\"'>";
-                }
-                else
-                { 
-                    // $user = mysqli_fetch_array(mysqli_query($adb , 
-                    //     "SELECT * FROM user 
-                    //     WHERE uid='$_SESSION[uid]'"));
-                    //     if($user['uprofkep_nev']!="") $profilkep = "./profilkepek/$user[uprofkep_nev]";
-                    //     else                          $profilkep = "alapprofilkep.jpg";
-
-                    //     print "
-                    //         <img src='./profilkepek/$user[uprofkep_nev]' style='height:36px;
-                    //         border-radius:50%;'>
-                    //         <a id='nev' href='./?p=adatlapom'>$_SESSION[unick]</a>
-                    //         <input type='button' value='Kilépés' id='btnkilep' onclick='kisablak.location.href=\"./logout.php\"'>
-                    //     ";
-                }
-        
-            ?>
-        </div>
-
         <?php
-        include("navigacio.php");
+            include("navigacio.php");
             if(isset($_GET['p'])) $p = $_GET['p'];
             else                  $p = "";
             if (!isset($_SESSION['uid']))
             {
-                if ($p=="")                 include("kezdolap.php");      else
+                if ($p=="")                 include ("kezdolap.php");     else
                 if ($p=="regisztracio")     include ("reg_form.php");     else
-                if ($p=="login")            include ("login_form2.php");  else
-                                            include("404_kulso.php");
+                if ($p=="login")            include ("login_form.php");   else
+                                            include ("404_kulso.php");
             }
             else
             {
                 if ($p=="")                 include ("belsolap.php");     else
-                if ($p=="adatlapom")        include("adatlap_form.php");  else
-                                            include("404_belso.php");
+                if ($p=="adatlapom")        include ("adatlap_form.php"); else
+                if ($p=="filmek")           include ("filmek.php");       else
+                if ($p=="feltoltes")        include ("filmfeltoltes_form.php");else
+                                            include ("404_belso.php");
             }
         ?>
 
@@ -91,9 +70,4 @@
         <br>
         <iframe name='kisablak'></iframe>
     </body>
-    
 </html>
-
-// <?php
-//     mysqli_close($adb);
-// ?>
