@@ -1,11 +1,8 @@
 <?php
     session_start();
     include("randomstring.php");
-    // print_r( $_POST );
 
     print "<hr>";
-
-
 
     include( "kapcsolat.php" );
 
@@ -45,7 +42,7 @@
 
     if (!$toltottefel) {
         if ($_POST['unick'] == "") {
-            die("<script> alert('Felhasználónév megadása kötelező!')</script>");
+            die("<script> alert('Felhasználónév megadása kötelező!')</script>") ;
         }
 
         mysqli_query($adb, "
