@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <title>Híres Horrorkarakterek</title>
     <style>
         body {
@@ -115,16 +116,14 @@
     <?php
      while ($row = mysqli_fetch_assoc($result)) {
          $characterName = $row['knev'];  // Karakter neve
-         $characterImage = "uploads/" . $row['karakter_kep'];  // Most a karakter_kep mezőt használjuk
-         $characterDescription = "Ez a karakter egy híres horrorkarakter...";  // Alapértelmezett leírás
-         $releaseDate = "Nincs adat"; // Ha nincs adat, akkor egy alapértéket adunk meg
-
+         $characterImage = "uploads/" . $row['karakter_kep'];  // Karakter képe
+         $characterDescription = $row['kleiras'];  // Karakter leírása
+         
          // Display the character card
          echo "
-            <div class='character-card' onclick='openCharacterDetails(\"$characterName\", \"$releaseDate\", \"$characterDescription\", \"$characterImage\")'>
+            <div class='character-card' onclick='openCharacterDetails(\"$characterName\", \"$characterDescription\", \"$characterImage\")'>
                 <img src='$characterImage' alt='$characterName'>
                 <div class='name'>$characterName</div>
-                <div class='release-date'>$releaseDate</div>
             </div>
          ";
      }
@@ -135,7 +134,6 @@
 <div class="character-details" id="character-details">
     <div class="character-details-content">
         <h2 id="character-name"></h2>
-        <p><strong>Megjelenés dátuma:</strong> <span id="release-date"></span></p>
         <p><strong>Leírás:</strong> <span id="character-description"></span></p>
         <img id="character-image" src="" alt="Character Image">
         <button onclick="closeDetails()">Bezárás</button>
@@ -144,9 +142,8 @@
 
 <script>
     // Open character details modal
-    function openCharacterDetails(name, releaseDate, description, image) {
+    function openCharacterDetails(name, description, image) {
         document.getElementById("character-name").textContent = name;
-        document.getElementById("release-date").textContent = releaseDate;
         document.getElementById("character-description").textContent = description;
         document.getElementById("character-image").src = image;
 
