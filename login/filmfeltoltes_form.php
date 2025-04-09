@@ -29,7 +29,7 @@
         }
         
         .kozepre {
-            height: calc(100vh - 100px); 
+            height: calc(100vh - 40px); 
             width: 100%;
             display: flex;
             justify-content: center;
@@ -108,8 +108,34 @@
             color: #fff;
             font-weight: 500; 
         }
+        
+        .dropdown_menu.open {
+            height: 220px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            z-index: 1000;
+        }
+
+        @media(max-width: 992px) {
+            .navbar .links,
+            .navbar .action_btn {
+                display: none;
+            }
+
+            .navbar .toggle_btn {
+                display: block;
+            }
+
+            .dropdown_menu {
+                display: block;
+            }
+        }
 
         @media(max-width: 576px) {
+            .dropdown_menu {
+                left: 2rem;
+                width: unset;
+            }
+        
             .wrapper {
                 width: 90%;
             }
