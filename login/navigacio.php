@@ -75,7 +75,8 @@
     }
 
     a:hover {
-        color: black;
+        color: #e74c3c;
+        transition: color 0.3s;
     }
 
     header{
@@ -94,8 +95,8 @@
     }
 
     .action_btn {
-        background-color: black;
-        color: #fff;
+        background-color: #fff;
+        color: black;
         padding: 0.5rem 1rem;
         margin-left: 10px;
         border: none;
@@ -108,8 +109,7 @@
     }
 
     .action_btn:hover {
-        scale: 1.05;
-        color: #fff;
+        color: #e74c3c;
     }
 
     .action_btn:active {
@@ -185,9 +185,9 @@
     <div class="navbar">
         <div class="logo"><a href="https://horrortar.hu/"><img src="logo.jpeg"></a></div>
         <ul class="links">
-            <li><a href="kezdolap">Kezdőlap</a></li>
             <li><a href="?p=filmek">Filmek</a></li>
-            <li><a href="karakterek">Karakterek</a></li>
+            <li><a href="?p=karakterek">Karakterek</a></li>
+            <!--<li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>-->
             <li><a href="?p=feltoltes">Film feltöltés</a></li>
         </ul>
         <div class="search">
@@ -227,7 +227,7 @@
     <div class="dropdown_menu">
         <li><a href="kezdolap">Kezdőlap</a></li>
         <li><a href="?p=filmek">Filmek</a></li>
-        <li><a href="karakterek">Karakterek</a></li>
+        <li><a href="?p=karakterek">Karakterek</a></li>
         <li><a href="?p=feltoltes">Film feltöltés</a></li>
             
         <?php
