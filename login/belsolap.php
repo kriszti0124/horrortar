@@ -49,64 +49,6 @@
         font-size: 1rem;
     }
 
-    a:hover {
-        color: black;
-    }
-
-    header{
-        position: relative;
-        padding: 0 2rem;
-    }
-
-    .navbar {
-        width: 100%;
-        height: 60px;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .navbar .logo a {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    .navbar .links {
-        display: flex;
-        gap: 2rem;
-    }
-
-    .navbar .toggle_btn {
-        color: #fff;
-        font-size: 1.5rem;
-        cursor: pointer;
-        display: none;
-    }
-
-    .action_btn {
-        background-color: black;
-        color: #fff;
-        padding: 0.5rem 1rem;
-        border: none;
-        outline: none;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: scale 0.2 ease;
-    }
-
-    .action_btn:hover {
-        scale: 1.05;
-        color: #fff;
-    }
-
-    .action_btn:active {
-        scale: 0.95;
-    }
-
     .dropdown_menu {
         display: none;
         position: absolute;
