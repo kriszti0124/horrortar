@@ -1,6 +1,7 @@
 <?php
     session_start() ;
     include("kapcsolat.php");
+    
 
     $ip = $_SERVER['REMOTE_ADDR'];
     $sess = substr(session_id() , 0, 8);
@@ -62,12 +63,20 @@
                 if ($p=="adatlapom")        include ("adatlap_form.php"); else
                 if ($p=="filmek")           include ("filmek.php");       else
                 if ($p=="feltoltes")        include ("filmfeltoltes_form.php");else
+                if ($p=="karakterek")       include ("karakter_form.php");       else
+                // if ($p=="karakterfeltolt")  include ("karakterfeltoltes_form.php");
+                // else
                                             include ("404_belso.php");
             }
         ?>
 
         <br>
         <br>
+        
+        <?php
+            include("footer.php");
+        ?>
+
         <iframe name='kisablak'></iframe>
     </body>
 </html>
