@@ -132,7 +132,7 @@
     }
 
     .dropdown_menu.open {
-        height: 125px;
+        height: 450px;
         border: 2px solid rgba(255, 255, 255, .5);
         box-shadow: 0 0 30px rgba(0, 0, 0, .5);
     }
@@ -171,10 +171,6 @@
             width: unset;
         }
         
-        .wrapper {
-            width: 90%;
-        }
-        
         .search {
             width: 200px;
         }
@@ -187,7 +183,7 @@
         <ul class="links">
             <li><a href="?p=filmek">Filmek</a></li>
             <li><a href="?p=karakterek">Karakterek</a></li>
-            <!--<li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>-->
+            <li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>
             <li><a href="?p=feltoltes">Film feltöltés</a></li>
         </ul>
         <div class="search">
@@ -225,9 +221,9 @@
     </div>
 
     <div class="dropdown_menu">
-        <li><a href="kezdolap">Kezdőlap</a></li>
         <li><a href="?p=filmek">Filmek</a></li>
         <li><a href="?p=karakterek">Karakterek</a></li>
+        <li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>
         <li><a href="?p=feltoltes">Film feltöltés</a></li>
             
         <?php
