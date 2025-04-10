@@ -69,6 +69,13 @@
             margin-top: 1rem;
         }
     }
+    
+    @media(max-width: 576px) {
+        .footer-links {
+            margin-left: 3px;
+            margin-right: 13px;
+        }
+    }
 </style>
 
 <footer>
