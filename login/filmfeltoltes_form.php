@@ -110,7 +110,7 @@
         }
         
         .dropdown_menu.open {
-            height: 220px;
+            height: 280px;
             box-shadow: 0 0 30px rgba(0, 0, 0, .5);
             z-index: 1000;
         }
