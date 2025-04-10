@@ -21,9 +21,13 @@
             margin: 0;
             padding: 0;
             overflow: auto;
+            height: 100%;
+            flex-direction: column;
+            
         }
 
         .container {
+            /*flex: 1;*/
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
@@ -106,6 +110,12 @@
 
         .character-details button:hover {
             background-color: #555;
+        }
+        
+        .dropdown_menu.open {
+            height: 280px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            z-index: 1000;
         }
     </style>
 </head>
