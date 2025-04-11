@@ -84,14 +84,25 @@
             <a href=https://horrortar.hu/>Horrortár</a>
         </div>
         <div class="footer-links">
-            <a href="#">Általános szerződési feltételek</a>
-            <a href="#">Adatvédelmi szabályzat</a>
+            <a href="#" onclick="downloadFile('/pdf/aszf.pdf')">Általános szerződési feltételek</a>
+            <a href="#" onclick="downloadFile('/pdf/adatvedelmi-szabalyzat.pdf')">Adatvédelmi szabályzat</a>
             <a href="#">GY.I.K.</a>
         </div>
         <div class="footer-social">
             <a href="#" class="social-icon"><i class='bx bxl-facebook'></i></a>
-            <a href="#" class="social-icon"><i class='bx bxl-twitter'></i></a>
+            <a href="#" class="social-icon"><i class='bx bxl-tiktok'></i></i></a>
             <a href="#" class="social-icon"><i class='bx bxl-instagram'></i></a>
         </div>
     </div>
 </footer>
+
+<script>
+    function downloadFile(filePath) {
+        const link = document.createElement('a');
+        link.href = filePath;
+        link.download = filePath.split('/').pop(); // pl. aszf.pdf
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
