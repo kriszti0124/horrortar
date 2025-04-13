@@ -34,6 +34,13 @@
         $_SESSION['uid']    = $user['uid'];
         $_SESSION['unick']  = $user['unick'];
     }
+     // Admin jogok hozzárendelése az admin azonosító alapján (uid = 94)
+    if ($user['uid'] == 94) {
+        $_SESSION['is_admin'] = true; // Az admin jogosultság
+    } else {
+        $_SESSION['is_admin'] = false;
+    }
+
 
     mysqli_close($adb);
     print "<script> parent.location.href = './' </script>";
