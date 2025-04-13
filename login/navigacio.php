@@ -1,4 +1,5 @@
 <style>
+    /* Stílusok változatlanok maradnak */
     .navbar {
         width: 100%;
         height: 60px;
@@ -7,9 +8,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: relative;
     }
 
     .navbar .logo img {
+        flex: 1;
         height: 50px;
         width: 50px;
         border-radius: 50%;
@@ -17,9 +20,20 @@
     }
 
     .navbar .links {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         align-items: center;
         gap: 2rem;
+    }
+    
+    .navbar .right-content {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
     }
 
     .navbar .toggle_btn {
@@ -67,7 +81,7 @@
     li {
         list-style: none;
     }
-    
+
     a {
         text-decoration: none;
         color: #fff;
@@ -83,13 +97,13 @@
         position: relative;
         padding: 0 2rem;
     }
-    
+
     .user-info {
         display: flex;
         align-items: center;
         margin-right: 10px;
     }
-    
+
     .user-info img {
         margin-right: 10px;
     }
@@ -149,7 +163,7 @@
         display: flex;
         justify-content: center;
     }
-    
+
     @media(max-width: 992px) {
         .navbar .links,
         .navbar .action_btn {
@@ -170,7 +184,7 @@
             left: 2rem;
             width: unset;
         }
-        
+
         .search {
             width: 200px;
         }
@@ -185,35 +199,35 @@
             <li><a href="?p=karakterek">Karakterek</a></li>
             <li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>
             <li><a href="?p=feltoltes">Film feltöltés</a></li>
-        </ul>
-        <div class="search">
-            <input type="text" placeholder="Keresés">
-            <i class='bx bx-search'></i>
-        </div>
 
-        <?php
+            <?php
+            // Ha a felhasználó admin, akkor megjelenik a kezelőpult gomb
+            if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+                echo '<li><a href="?p=admin" class="admin-button">Kezelőpult</a></li>';
+            }
+            ?>
+        </ul>
+        <div class="right-content">
+            <?php
             if (isset($_SESSION['uid'])) {
                 $user = mysqli_fetch_array(mysqli_query($adb , "SELECT * FROM user WHERE uid='$_SESSION[uid]'"));
+                
                 if($user['uprofkep_nev'] != "") $profilkep = "./profilkepek/$user[uprofkep_nev]";
                 else $profilkep = "alapprofilkep.jpg";
 
                 echo "
-                    <div class='links'>
-                        <div class='user-info'>
-                            <img src='$profilkep' style='height:36px; width: 36px; border-radius:50%;'>
-                                
-                            <a href='./?p=adatlapom' id='nev' style='color:white;'>$_SESSION[unick]</a>
-                        </div>
-    
-                        <a href='./logout.php' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Kilépés</a>
+                    <div class='user-info'>
+                        <img src='$profilkep' style='height:36px; width: 36px; border-radius:50%;'>
+                        <a href='./?p=adatlapom' id='nev' style='color:white;'>$_SESSION[unick]</a>
                     </div>
+                    <a href='./logout.php' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Kilépés</a>
                 ";
-            }
-            else
-            {
+            } else {
                 echo "<a href='./?p=login' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Belépés</a>";
             }
-        ?>
+            ?>
+        </div>
+        
 
         <div class="toggle_btn">
             <i class="bx bx-menu"></i>
@@ -225,31 +239,29 @@
         <li><a href="?p=karakterek">Karakterek</a></li>
         <li><a href="?p=karakterfeltolt">Karakter feltöltés</a></li>
         <li><a href="?p=feltoltes">Film feltöltés</a></li>
-            
+        
         <?php
-            if (isset($_SESSION['uid'])) {
-                echo "
-                    <li><img src='$profilkep' style='height:36px; width: 36px; border-radius:50%;'>
-                                
-                    <a href='./?p=adatlapom' id='nev' style='color:white; padding-left:10px;'>$_SESSION[unick]</a></li>
-                                
-                    <li><a href='./logout.php' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Kilépés</a></li>";
-            }
-            else {
-                echo "<li><a href='./?p=login' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Belépés</a></li>";
-            }
+        if (isset($_SESSION['uid'])) {
+            echo "
+                <li><img src='$profilkep' style='height:36px; width: 36px; border-radius:50%;'>
+                <a href='./?p=adatlapom' id='nev' style='color:white; padding-left:10px;'>$_SESSION[unick]</a></li>
+                <li><a href='./logout.php' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Kilépés</a></li>";
+        } else {
+            echo "<li><a href='./?p=login' class='action_btn' style='background-color:rgb(12, 19, 25); color:white; border-radius:6px;'>Belépés</a></li>";
+        }
         ?>
     </div>
 </header>
-    <script>
-        const toggleBtn = document.querySelector('.toggle_btn')
-        const toggleBtnIcon = document.querySelector('.toggle_btn i')
-        const dropdownMenu = document.querySelector('.dropdown_menu')
 
-        toggleBtn.onclick = function () {
-            dropdownMenu.classList.toggle('open')
-            const isOpen = dropdownMenu.classList.contains('open')
+<script>
+    const toggleBtn = document.querySelector('.toggle_btn')
+    const toggleBtnIcon = document.querySelector('.toggle_btn i')
+    const dropdownMenu = document.querySelector('.dropdown_menu')
 
-            toggleBtnIcon.classList = isOpen ? 'bx bx-x' : 'bx bx-menu'
-        }
-    </script>
+    toggleBtn.onclick = function () {
+        dropdownMenu.classList.toggle('open')
+        const isOpen = dropdownMenu.classList.contains('open')
+
+        toggleBtnIcon.classList = isOpen ? 'bx bx-x' : 'bx bx-menu'
+    }
+</script>
