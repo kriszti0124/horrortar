@@ -4,6 +4,8 @@ session_start();
 ini_set('display_errors', 1); 
 error_reporting(E_ALL);
 
+// Kezdjük el a kimenet bufferelését
+ob_start();
 
 include("kapcsolat.php");
 
@@ -16,7 +18,6 @@ if (!isset($_SESSION['uid'])) {
 // Ha POST kérést kapunk
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // A karakter adatai
-    $fid = mysqli_real_escape_string($adb, $_POST['fid']);
     $knev = mysqli_real_escape_string($adb, $_POST['knev']);
     $kleiras = mysqli_real_escape_string($adb, $_POST['kleiras']);
     
@@ -36,14 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Adatbázisba való mentés
         $query = "
-            INSERT INTO karakterek (kid, fid, knev, kleiras, karakter_kep) 
-            VALUES (NULL, '$fid', '$knev', '$kleiras', '$unique_filename')
+            INSERT INTO karakterek (fid, knev, kleiras, karakter_kep) 
+            VALUES ('$uid', '$knev', '$kleiras', '$unique_filename')
         ";
 
         // Ha sikeres az adatbázisba való beszúrás
         if (mysqli_query($adb, $query)) {
             echo "<script>alert('Karakter sikeresen feltöltve!');</script>";
+            header('Location: index.php');  // Irányítsa vissza a főoldalra
+            exit();
         } else {
+            // Hibák naplózása
             echo "<script>alert('Hiba történt a karakter feltöltése során: " . mysqli_error($adb) . "');</script>";
         }
     } else {
@@ -53,4 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Kapcsolat bezárása
 mysqli_close($adb);
+
+// Kimenet vége, buffert kiürítjük
+ob_end_flush();
 ?>
