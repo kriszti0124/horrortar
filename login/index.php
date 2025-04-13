@@ -1,12 +1,11 @@
 <?php
-    session_start() ;
+    session_start();
     include("kapcsolat.php");
-    
 
     $ip = $_SERVER['REMOTE_ADDR'];
-    $sess = substr(session_id() , 0, 8);
+    $sess = substr(session_id(), 0, 8);
 
-    if( isset($_SESSION['uid'])) $uid = $_SESSION['uid'];
+    if (isset($_SESSION['uid'])) $uid = $_SESSION['uid'];
     else                         $uid = 0;
 
     $url = $_SERVER['REQUEST_URI'];
@@ -48,25 +47,30 @@
     <body>
         <?php
             include("navigacio.php");
-            if(isset($_GET['p'])) $p = $_GET['p'];
+            if (isset($_GET['p'])) $p = $_GET['p'];
             else                  $p = "";
             if (!isset($_SESSION['uid']))
             {
-                if ($p=="")                 include ("kezdolap.php");     else
-                if ($p=="regisztracio")     include ("reg_form.php");     else
-                if ($p=="login")            include ("login_form.php");   else
-                                            include ("404_kulso.php");
+                if ($p=="")                 include("kezdolap.php");     else
+                if ($p=="regisztracio")     include("reg_form.php");     else
+                if ($p=="login")            include("login_form.php");   else
+                if ($p=="support")          include("support.php");      else
+                if ($p=="gyik")             include("gyik.php");         else
+                                            include("404_kulso.php");
             }
             else
             {
-                if ($p=="")                 include ("belsolap.php");     else
-                if ($p=="adatlapom")        include ("adatlap_form.php"); else
-                if ($p=="filmek")           include ("filmek.php");       else
-                if ($p=="feltoltes")        include ("filmfeltoltes_form.php");else
-                if ($p=="karakterek")       include ("karakter_form.php");       else
-                // if ($p=="karakterfeltolt")  include ("karakterfeltoltes_form.php");
-                // else
-                                            include ("404_belso.php");
+                if ($p=="")                 include("belsolap.php");     else
+                if ($p=="adatlapom")        include("adatlap_form.php"); else
+                if ($p=="filmek")           include("filmek.php");       else
+                if ($p=="admin")            include("kezelopult/kontrolpanel.php");       else
+                if ($p=="feltoltes")        include("filmfeltoltes_form.php");else
+                if ($p=="karakterek")       include("karakter_form.php");       else
+                if ($p=="karakterfeltolt")  include("karakterfeltoltes_form.php");
+                else
+                if ($p=="support")          include("support.php");      else
+                if ($p=="gyik")             include("gyik.php");         else
+                                            include("404_belso.php");
             }
         ?>
 
