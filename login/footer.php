@@ -86,7 +86,8 @@
         <div class="footer-links">
             <a href="#" onclick="downloadFile('/pdf/aszf.pdf')">Általános szerződési feltételek</a>
             <a href="#" onclick="downloadFile('/pdf/adatvedelmi-szabalyzat.pdf')">Adatvédelmi szabályzat</a>
-            <a href="#">GY.I.K.</a>
+            <a href="./?p=kapcsolat">Kapcsolat</a>
+            <a href="./?p=gyik">GY.I.K.</a>
         </div>
         <div class="footer-social">
             <a href="#" class="social-icon"><i class='bx bxl-facebook'></i></a>
